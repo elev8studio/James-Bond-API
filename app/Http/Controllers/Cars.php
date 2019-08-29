@@ -30,6 +30,9 @@ class Cars extends Controller
     {
         $data = $request->only(["make", "model", "colour"]);
         $car = Car::create($data);
+        
+        $car->setFilms($request->get("film_ids"));
+
         return new CarResource($car);
     }
 
@@ -55,6 +58,9 @@ class Cars extends Controller
     {
         $data = $request->only(["make", "model", "colour"]);
         $car->fill($data)->save();
+
+        $car->setFilms($request->get("film_ids"));
+
         return new CarResource($car);
     }
 

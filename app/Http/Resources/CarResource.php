@@ -14,11 +14,15 @@ class CarResource extends JsonResource
      */
     public function toArray($request)
     {
+        // make sure films are up to date
+        $this->resource->load("films");
+
         return [
             "id" => $this->id,
             "make" => $this->make,
             "model" => $this->model,
-            "colour" => $this->colour,
+            "colour" => $this->colour, 
+            "films" => $this->films->pluck('name'),
         ];
     }
 }

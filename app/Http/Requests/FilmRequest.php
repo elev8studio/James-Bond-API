@@ -27,7 +27,8 @@ class FilmRequest extends FormRequest
             "name" => ["required", "string", "max:50"],
             "release_date" => ["required", "date"],
             "director" => ["required", "string", "max:50"],
-            "bond_id" => ["required", "integer"]
+            "bond_id" => ["required", "integer"],
+            "car_ids" => ["exists:cars,id", "array"]
         ];
     }
 }

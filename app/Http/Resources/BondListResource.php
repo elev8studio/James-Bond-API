@@ -17,6 +17,7 @@ class BondListResource extends JsonResource
         return [
             "id" => $this->id,
             "name" => $this->name,
+            "films" => $this->films->pluck('name'),
         ];
     }
 }

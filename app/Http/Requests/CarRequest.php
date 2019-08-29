@@ -27,6 +27,7 @@ class CarRequest extends FormRequest
             "make" => ["required", "string", "max:50"],
             "model" => ["required", "string", "max:50"],
             "colour" => ["required", "string", "max:15"],
+            "film_ids" => ["exists:films,id", "array"],
         ];
     }
 }

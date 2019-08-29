@@ -44,6 +44,9 @@ class Films extends Controller
         //
         $data = $request->only(["name", "release_date", "director", "bond_id"]);
         $film = Film::create($data);
+
+        $film->setCars($request->get("car_ids"));
+
         return new FilmResource($film);
     }
 
