@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use App\Car;
 use App\Http\Resources\CarResource;
 use App\Http\Resources\CarListResource;
+use App\Http\Requests\CarRequest;
 
 class Cars extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\CarListResource
      */
     public function index()
     {
@@ -20,12 +21,12 @@ class Cars extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created car in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\CarRequest  $request
+     * @return \App\Http\Resources\CarResource
      */
-    public function store(Request $request)
+    public function store(CarRequest $request)
     {
         $data = $request->only(["make", "model", "colour"]);
         $car = Car::create($data);
@@ -33,10 +34,10 @@ class Cars extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified car.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Car;
+     * @return \App\Http\Resources\CarResource;
      */
     public function show(Car $car)
     {
@@ -44,13 +45,13 @@ class Cars extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified car in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\CarRequest  $request
+     * @param  \App\Car
+     * @return \App\Http\Resources\CarResource
      */
-    public function update(Request $request, Car $car)
+    public function update(CarRequest $request, Car $car)
     {
         $data = $request->only(["make", "model", "colour"]);
         $car->fill($data)->save();
@@ -58,9 +59,9 @@ class Cars extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified car from storage.
      *
-     * @param  int  $id
+     * @param  \App\Car
      * @return \Illuminate\Http\Response
      */
     public function destroy(Car $car)

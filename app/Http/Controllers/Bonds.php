@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use App\Bond;
 use App\Http\Resources\BondListResource;
 use App\Http\Resources\BondResource;
+use App\Http\Requests\BondRequest;
+
 
 class Bonds extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the bond.
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,12 +22,12 @@ class Bonds extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created bond in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\BondRequest  $request
+     * @return \App\Http\Resources\BondResource
      */
-    public function store(Request $request)
+    public function store(BondRequest $request)
     {
         $data = $request->only(["name", "dob"]);
         $bond = Bond::create($data);
@@ -33,10 +35,10 @@ class Bonds extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified bond.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Bond
+     * @return \App\Http\Resources\BondResource
      */
     public function show(Bond $bond)
     {
@@ -44,13 +46,13 @@ class Bonds extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified bond in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\BondRequest  $request
+     * @param  \App\Bond
+     * @return \App\Http\Resources\BondResource
      */
-    public function update(Request $request, Bond $bond)
+    public function update(BondRequest $request, Bond $bond)
     {
         $data = $request->only(["name", "dob"]);
         $bond->fill($data)->save();
@@ -58,9 +60,9 @@ class Bonds extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified bond from storage.
      *
-     * @param  int  $id
+     * @param  \App\Bond
      * @return \Illuminate\Http\Response
      */
     public function destroy(Bond $bond)

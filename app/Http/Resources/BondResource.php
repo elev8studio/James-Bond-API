@@ -18,6 +18,7 @@ class BondResource extends JsonResource
             "id" => $this->id,
             "name" => $this->name,
             "dob" => $this->dob,
+            "films" => $this->films->pluck('name'),
         ];
     }
 }

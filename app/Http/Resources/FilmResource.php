@@ -19,6 +19,7 @@ class FilmResource extends JsonResource
             "name" => $this->name,
             "release_date" => $this->release_date,
             "director" => $this->director,
+            "bond" => $this->bond['name'],
         ];
     }
 }

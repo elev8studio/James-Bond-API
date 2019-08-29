@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Film;
+use App\Bond;
 use App\Http\Resources\FilmListResource;
 use App\Http\Resources\FilmResource;
+use App\Http\Requests\FilmRequest;
 
 class Films extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the film.
      *
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\FilmListResource
      */
     public function index()
     {
@@ -21,24 +23,35 @@ class Films extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * Display a listing of the films for a specific bond.
+     * 
+     * @param  \App\Bond
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function bondIndex(Bond $bond)
+    {
+        return FilmResource::collection($bond->films);
+    }
+
+    /**
+     * Store a newly created film in storage.
+     *
+     * @param  \App\Http\Requests\FilmRequest  $request
+     * @return \App\Http\Resources\FilmResource
+     */
+    public function store(FilmRequest $request)
     {
         //
-        $data = $request->only(["name", "release_date", "director"]);
+        $data = $request->only(["name", "release_date", "director", "bond_id"]);
         $film = Film::create($data);
         return new FilmResource($film);
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified film.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Film
+     * @return \App\Http\Resources\FilmResource
      */
     public function show(Film $film)
     {
@@ -47,24 +60,24 @@ class Films extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified film in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \App\Http\Requests\FilmRequest  $request
+     * @param  \App\Film
+     * @return \App\Http\Resources\FilmResource
      */
-    public function update(Request $request, Film $film)
+    public function update(FilmRequest $request, Film $film)
     {
         //
-        $data = $request->only(["name", "release_date", "director"]);
+        $data = $request->only(["name", "release_date", "director", "bond_id"]);
         $film->fill($data)->save();
         return new FilmResource($film);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified film from storage.
      *
-     * @param  int  $id
+     * @param  \App\Film
      * @return \Illuminate\Http\Response
      */
     public function destroy(Film $film)
