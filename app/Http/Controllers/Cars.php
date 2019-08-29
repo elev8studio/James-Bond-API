@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Car;
+use App\Film;
 use App\Http\Resources\CarResource;
 use App\Http\Resources\CarListResource;
+use App\Http\Resources\CarsInFilmResource;
 use App\Http\Requests\CarRequest;
 
 class Cars extends Controller
@@ -18,6 +20,11 @@ class Cars extends Controller
     public function index()
     {
         return CarListResource::collection(Car::all());
+    }
+
+    public function filmIndex(Film $film)
+    {
+        return CarsInFilmResource::collection($film->cars);
     }
 
     /**

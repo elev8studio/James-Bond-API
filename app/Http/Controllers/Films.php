@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Film;
+use App\Car;
 use App\Bond;
 use App\Http\Resources\FilmListResource;
 use App\Http\Resources\FilmResource;
+use App\Http\Resources\FilmsWithCarResource;
+use App\Http\Resources\FilmsWithBondResource;
 use App\Http\Requests\FilmRequest;
 
 class Films extends Controller
@@ -26,11 +29,22 @@ class Films extends Controller
      * Display a listing of the films for a specific bond.
      * 
      * @param  \App\Bond
-     * @return \Illuminate\Http\Response
+     * @return \App\Http\Resources\FilmResource
      */
     public function bondIndex(Bond $bond)
     {
-        return FilmResource::collection($bond->films);
+        return FilmsWithBondResource::collection($bond->films);
+    }
+
+    /**
+     * Display a listing of the films for a specific car.
+     * 
+     * @param  \App\Car
+     * @return \Illuminate\Http\Response
+     */
+    public function carIndex(Car $car)
+    {
+        return FilmsWithCarResource::collection($car->films);
     }
 
     /**
