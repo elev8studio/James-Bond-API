@@ -7,6 +7,7 @@ use App\Bond;
 use App\Http\Resources\BondListResource;
 use App\Http\Resources\BondResource;
 use App\Http\Requests\BondRequest;
+use App\Http\Requests\BondStoreRequest;
 
 
 class Bonds extends Controller
@@ -27,7 +28,7 @@ class Bonds extends Controller
      * @param  \App\Http\Requests\BondRequest  $request
      * @return \App\Http\Resources\BondResource
      */
-    public function store(BondRequest $request)
+    public function store(BondStoreRequest $request)
     {
         $data = $request->only(["name", "dob"]);
         $bond = Bond::create($data);
